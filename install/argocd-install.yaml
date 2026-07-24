@@ -1,0 +1,23 @@
+# One-time bootstrap install of ArgoCD core.
+#
+# This is intentionally NOT managed by ArgoCD itself — it's the seed that
+# lets ArgoCD exist in the cluster before GitOps reconciliation can begin.
+#
+# Apply once:
+#   kubectl create namespace argocd
+#   kubectl apply -n argocd -f bootstrap/argocd-install.yaml
+#
+# Pin the version explicitly rather than tracking `stable` so bootstrap is
+# reproducible if the cluster is ever rebuilt from scratch. Check the latest
+# tag at: https://github.com/argoproj/argo-cd/releases
+#
+# Replace v2.13.2 below with the version you want to pin.
+#
+# This file is a pointer, not the manifest itself, since the upstream
+# install.yaml is large (CRDs + RBAC + all core components). Fetch it with:
+#
+#   curl -sL https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.2/manifests/install.yaml \
+#     -o bootstrap/argocd-install.yaml
+#
+# ...then commit the fetched file in place of this placeholder so the repo
+# is self-contained and doesn't depend on a live fetch at apply-time.

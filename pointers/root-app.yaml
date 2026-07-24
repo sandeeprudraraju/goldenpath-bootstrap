@@ -1,0 +1,30 @@
+# App-of-apps root. Applied manually, once, right after ArgoCD core exists.
+# From here on, ArgoCD reconciles everything under apps/ — including its
+# own Helm release (apps/argocd/) — with no further manual kubectl/helm
+# commands needed.
+#
+# Apply once:
+#   kubectl apply -f bootstrap/root-app.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<your-org>/homely.git
+    targetRevision: main
+    path: goldenpaths/goldenpath-argocd/apps
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
