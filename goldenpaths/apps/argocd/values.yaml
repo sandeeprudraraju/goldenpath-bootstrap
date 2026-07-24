@@ -1,0 +1,51 @@
+# ArgoCD Helm values — pinned to pimaster (role=pipeline), tolerating the
+# k3s control-plane taint set up during cluster isolation.
+# This file is sourced from https://github.com/sandeeprudraraju/goldenpath-bootstrap.git.
+
+global:
+  nodeSelector:
+    role: pipeline
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+
+redis:
+  nodeSelector:
+    role: pipeline
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+
+# Skip unless/until SSO is needed — saves RAM on the Pi.
+dex:
+  enabled: false
+
+# Skip unless you're wiring up Slack/webhook notifications.
+notifications:
+  enabled: false
+
+server:
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+
+repoServer:
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+
+controller:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 150m
+    limits:
+      memory: 512Mi

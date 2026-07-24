@@ -14,7 +14,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-org>/homely.git
+    repoURL: https://github.com/sandeeprudraraju/goldenpath-bootstrap.git
     targetRevision: main
     path: goldenpaths/goldenpath-argocd/apps
     directory:
