@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/sandeeprudraraju/goldenpath-bootstrap.git
     targetRevision: main
-    path: goldenpaths/goldenpath-argocd/apps
+    path: goldenpaths/apps
     directory:
       recurse: true
   destination:
